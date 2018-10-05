@@ -7,6 +7,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
 <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
@@ -41,8 +42,107 @@
   
   * {box-sizing: border-box;}
   
+  #fade {
+  display: none;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
+}
+
+#light {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 600px;
+  max-height: 360px;
+  margin-left: -300px;
+  margin-top: -180px;
+  border: 2px solid #FFF;
+  background: #FFF;
+  z-index: 1002;
+  overflow: visible;
+}
+
+#boxclose {
+  float: right;
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #AEAEAE;
+  border-radius: 3px;
+  background: #222222;
+  font-size: 31px;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 0px;
+  padding: 11px 3px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  z-index: 1002;
+  opacity: 0.9;
+}
+
+.boxclose:before {
+  content: "×";
+}
+
+#fade:hover ~ #boxclose {
+  display:none;
+}
+
+.test:hover ~ .test2 {
+  display: none;
+}
+.vid-div {
+  position: fixed;
+    right: 15px;
+}
+.vid-div a {
+  color:#EC9787;
+  font-size:13px;
+}
+.pdf-link {
   
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+}
+
+.pdf-link a{
   
+  color:#333 !important;
+  font-size:13px;
+}
+#nylon-md {
+  display: none;
+}
+@media (max-width:420px) {
+  .pdf-link {
+    width: 100%;
+    text-align: center;
+    right: 0;
+    background: #fff;
+    bottom: 0;
+}
+#nylon-md {
+  display: block;
+    width: 100%;
+    right: 0;
+    z-index: 9999;
+    text-align: center;
+    position: relative;
+}
+
+}
+
   </style>
   <meta charset="utf-8" />
 
@@ -70,6 +170,9 @@
             <div class="one-container col-12 col-md-6 pl-lg-5 img-magnifier-container">
             
                 <img id="img-one" class="img-fluid small" src="/img/SarahLathrop-portfolio.png" alt="">
+                <div id="nylon-md" class="vid-div">
+                    <a href="#" onclick="lightbox_open();">Watch Nylon's Video on Sarah <i class="fas fa-video"></i></a>
+                  </div>
             </div>
 
             <div class="two-container col-12 col-md-6 pr-lg-5 img-magnifier-container">
@@ -79,7 +182,24 @@
       </div>
    
   </div>
+
+
+  <div id="light">
+    <a class="boxclose" id="boxclose" onclick="lightbox_close();"></a>
+    <video id="VisaChipCardVideo" width="600" controls>
+        <source src="http://sextpixels.com/img/nylon.mp4" type="video/mp4">
+        <!--Browser does not support <video> tag -->
+      </video>
+  </div>
   
+  <div id="fade" onClick="lightbox_close();"></div>
+  
+  <div class="vid-div d-none d-sm-block">
+    <a href="#" onclick="lightbox_open();">Watch Nylon's Video on Sarah <i class="fas fa-video"></i></a>
+  </div>
+  <div class="pdf-link">
+    <a target="_blank" href="/SarahLathrop-portfolio.pdf">Download Portfolio <i class="fas fa-file-pdf"></i></a>
+  </div>
 
 </body>
 <script>
@@ -140,6 +260,29 @@
 if (window.outerWidth > 420) {
     magnify("img-one", 3);
 magnify("img-two", 3)
+}
+window.document.onkeydown = function(e) {
+  if (!e) {
+    e = event;
+  }
+  if (e.keyCode == 27) {
+    lightbox_close();
+  }
+}
+
+function lightbox_open() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+  window.scrollTo(0, 0);
+  document.getElementById('light').style.display = 'block';
+  document.getElementById('fade').style.display = 'block';
+  lightBoxVideo.play();
+}
+
+function lightbox_close() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+  document.getElementById('light').style.display = 'none';
+  document.getElementById('fade').style.display = 'none';
+  lightBoxVideo.pause();
 }
 </script>
 </html>
