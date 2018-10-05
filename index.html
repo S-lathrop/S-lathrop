@@ -254,10 +254,7 @@
     return {x : x, y : y};
   }
 }
-if (window.outerWidth > 420) {
-    magnify("img-one", 3);
-magnify("img-two", 3)
-}
+
 window.document.onkeydown = function(e) {
   if (!e) {
     e = event;
@@ -281,6 +278,14 @@ function lightbox_close() {
   document.getElementById('fade').style.display = 'none';
   lightBoxVideo.pause();
 }
+
+
+$(function() {
+  if (window.outerWidth > 420) {
+    magnify("img-one", 3);
+magnify("img-two", 3)
+}
+});
 </script>
 </html>
 
